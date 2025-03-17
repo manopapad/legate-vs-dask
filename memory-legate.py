@@ -28,5 +28,5 @@ del x
 increment(z, y)
 y.offload_to(SYSMEM)
 
-# in-place updates are possible
+# in-place updates save on intermediates
 increment(z, z)

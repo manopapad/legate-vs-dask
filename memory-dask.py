@@ -1,17 +1,13 @@
-import cupy as cp
-import numpy as np
-from numpy import int8
-
 import dask
-from dask import array as da
 from dask.distributed import Client, wait
 from dask_cuda import LocalCUDACluster
+from numpy import int8
 
 if __name__ == "__main__":
     cluster = LocalCUDACluster()
     client = Client(cluster)
 
-def increment(arr: cp.ndarray) -> cp.ndarray:
+def increment(arr: cupy.ndarray) -> cupy.ndarray:
     return arr + 1
 
 if __name__ == "__main__":
@@ -20,7 +16,7 @@ if __name__ == "__main__":
     chunks = (2**30,)
 
     with dask.config.set({"array.backend": "cupy"}):
-        x = da.full(
+        x = dask.array.full(
             shape, 42, chunks=chunks, dtype=int8
         )
 
