@@ -15,12 +15,6 @@ machine = get_machine()
 def initialize(dst: OutputStore) -> None:
     numpy.asarray(dst)[:] = 1
 
-@task(variants=(CPU,GPU))
-def increment(
-    dst: OutputStore, src: InputStore
-) -> None:
-    cupy.asarray(dst)[:] = cupy.asarray(src) + 1
-
 shape = (2**31,)
 x = runtime.create_store(int8, shape)
 

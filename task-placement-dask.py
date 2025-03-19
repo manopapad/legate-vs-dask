@@ -10,11 +10,8 @@ if __name__ == "__main__":
     cluster = LocalCUDACluster()
     client = Client(cluster)
 
-if __name__ == "__main__":
-
     # one worker per GPU
-    worker0, worker1 =
-        client.scheduler_info()['workers'].keys()
+    w0, w1 = client.scheduler_info()['workers'].keys()
 
     shape = (2**21,)
     chunks = (2**20,)
@@ -26,7 +23,7 @@ if __name__ == "__main__":
         )
 
     # full data is pulled to GPU 0, work happens there
-    with dask.annotate(workers=(worker0,)):
+    with dask.annotate(workers=(w0,)):
         y = x + 1
 
     assert(z.max().compute() == 2)
