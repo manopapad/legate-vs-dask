@@ -11,9 +11,9 @@ ary = cupynumeric.ones(shape, int32)
 # through the Legate Data Interface
 # in this case, no repartitioning needs to happen
 col = LogicalColumn(ary)
-print(reduce(col, aggregation.sum(), int32)) # 1024
+print(reduce(col, aggregation.sum(), int32))  # 1024
 
 # the column and array refer to the same data
 # whether or not repartitioning needed to happen
 cupynumeric.add(ary, 1, out=ary)
-print(reduce(col, aggregation.sum(), int32)) # 2048
+print(reduce(col, aggregation.sum(), int32))  # 2048

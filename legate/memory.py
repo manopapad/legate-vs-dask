@@ -8,11 +8,11 @@ GPU = legate.core.VariantCode.GPU
 SYSMEM = legate.core.StoreTarget.SYSMEM
 runtime = get_legate_runtime()
 
+
 @task(variants=(GPU,))
-def increment(
-    dst: OutputStore, src: InputStore
-) -> None:
+def increment(dst: OutputStore, src: InputStore) -> None:
     cupy.asarray(dst)[:] = cupy.asarray(src) + 1
+
 
 shape = (2**31,)
 x = runtime.create_store(int8, shape)

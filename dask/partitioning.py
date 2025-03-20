@@ -8,8 +8,10 @@ if __name__ == "__main__":
     cluster = LocalCUDACluster()
     client = Client(cluster)
 
+
 def batched_fft(src: cupy.ndarray) -> cupy.ndarray:
     return cupy.fft.fftn(src, axes=(0,))
+
 
 if __name__ == "__main__":
 
@@ -18,9 +20,7 @@ if __name__ == "__main__":
     chunks = (1024, 512)
 
     with dask.config.set({"array.backend": "cupy"}):
-        x = dask.array.full(
-            shape, 42, chunks=chunks, dtype=complex64
-        )
+        x = dask.array.full(shape, 42, chunks=chunks, dtype=complex64)
 
     y = x.map_blocks(batched_fft)
     wait(y.persist())

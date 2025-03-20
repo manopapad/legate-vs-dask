@@ -8,8 +8,10 @@ if __name__ == "__main__":
     cluster = LocalCUDACluster()
     client = Client(cluster)
 
+
 def increment(arr: cupy.ndarray) -> cupy.ndarray:
     return arr + 1
+
 
 if __name__ == "__main__":
 
@@ -17,9 +19,7 @@ if __name__ == "__main__":
     chunks = (2**30,)
 
     with dask.config.set({"array.backend": "cupy"}):
-        x = dask.array.full(
-            shape, 42, chunks=chunks, dtype=int8
-        )
+        x = dask.array.full(shape, 42, chunks=chunks, dtype=int8)
 
     # only the persisted values are kept around
     # refs to non-persisted values don't matter

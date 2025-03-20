@@ -7,15 +7,16 @@ from legate.core.types import int8
 GPU = legate.core.VariantCode.GPU
 runtime = get_legate_runtime()
 
-@task(variants=(GPU,),
-      constraints=(broadcast("x", (1,)),))
+
+@task(variants=(GPU,), constraints=(broadcast("x", (1,)),))
 def row_wise(x: InputStore) -> None:
     assert cupy.asarray(x).shape == (500, 3000)
 
-@task(variants=(GPU,),
-      constraints=(broadcast("x", (0,)),))
+
+@task(variants=(GPU,), constraints=(broadcast("x", (0,)),))
 def col_wise(x: InputStore) -> None:
     assert cupy.asarray(x).shape == (1000, 1500)
+
 
 store = runtime.create_store(int8, (1000, 3000))
 runtime.issue_fill(store, 1)
