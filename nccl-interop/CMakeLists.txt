@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project(test_nccl VERSION 1.0 LANGUAGES CUDA CXX)
 
-add_library(test_nccl test_nccl.cu)
+set(CMAKE_BUILD_TYPE "Debug")
+
+add_executable(test_nccl test_nccl.cu)
 
 find_package(legate REQUIRED)
 
