@@ -1,3 +1,4 @@
+import cupy
 import dask
 from dask.distributed import Client, wait
 from dask_cuda import LocalCUDACluster

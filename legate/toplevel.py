@@ -2,7 +2,7 @@ import cupy
 import legate
 from legate.core import get_legate_runtime
 from legate.core.task import InputStore, OutputStore, task
-from legate.core.types import int8
+from legate.core.types import int32
 
 GPU = legate.core.VariantCode.GPU
 runtime = get_legate_runtime()
@@ -18,7 +18,7 @@ def increment(
     cupy.asarray(dst)[:] = cupy.asarray(src) + 1
 
 # initialize data scattered across GPUs
-x = runtime.create_store(int8, (2**20,))
+x = runtime.create_store(int32, (2**20,))
 initialize(x)
 
 # pull the data onto first local GPU memory

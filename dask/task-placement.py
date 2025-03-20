@@ -26,4 +26,4 @@ if __name__ == "__main__":
     with dask.annotate(workers=(w0,)):
         y = x + 1
 
-    assert(z.max().compute() == 2)
+    assert(y.max().compute() == 2)

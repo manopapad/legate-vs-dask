@@ -1,3 +1,4 @@
+import cupy
 import legate
 from legate.core import get_legate_runtime
 from legate.core.task import InputStore, OutputStore, task
