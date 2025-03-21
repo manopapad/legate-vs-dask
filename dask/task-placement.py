@@ -11,19 +11,17 @@ if __name__ == "__main__":
     client = Client(cluster)
 
     # one worker per GPU
-    w0, w1 = client.scheduler_info()['workers'].keys()
+    w0, w1 = client.scheduler_info()["workers"].keys()
 
     shape = (2**21,)
     chunks = (2**20,)
 
     with dask.config.set({"array.backend": "cupy"}):
         # data is initialized in two chunks
-        x = dask.array.ones(
-            shape, chunks=chunks, dtype=int8
-        )
+        x = dask.array.ones(shape, chunks=chunks, dtype=int8)
 
     # full data is pulled to GPU 0, work happens there
     with dask.annotate(workers=(w0,)):
         y = x + 1
 
-    assert(y.max().compute() == 2)
+    assert y.max().compute() == 2

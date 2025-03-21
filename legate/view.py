@@ -9,15 +9,15 @@ CPU = legate.core.VariantCode.CPU
 GPU = legate.core.VariantCode.GPU
 runtime = get_legate_runtime()
 
-@task(variants=(CPU,GPU))
-def fill(
-    to_fill: OutputStore, val: int
-) -> None:
+
+@task(variants=(CPU, GPU))
+def fill(to_fill: OutputStore, val: int) -> None:
     try:
         arr = numpy.asarray(to_fill)
     except ValueError:
         arr = cupy.asarray(to_fill)
     arr[:] = val
+
 
 array = runtime.create_array(int64, (9, 9))
 

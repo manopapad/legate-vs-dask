@@ -11,9 +11,11 @@ GPU = legate.core.VariantCode.GPU
 runtime = get_legate_runtime()
 machine = get_machine()
 
+
 @task(variants=(CPU,))
 def initialize(dst: OutputStore) -> None:
     numpy.asarray(dst)[:] = 1
+
 
 shape = (2**31,)
 x = runtime.create_store(int8, shape)

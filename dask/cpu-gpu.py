@@ -20,4 +20,4 @@ if __name__ == "__main__":
     # back to NumPy
     z = y.map_blocks(cupy.asnumpy)
 
-    assert(z.max().compute() == 1)
+    assert z.max().compute() == 1

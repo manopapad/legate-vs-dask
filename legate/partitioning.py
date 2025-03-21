@@ -7,19 +7,24 @@ from legate.core.types import complex64
 GPU = legate.core.VariantCode.GPU
 runtime = get_legate_runtime()
 
+
 @task(
     variants=(GPU,),
     constraints=(
         # partition these in the same way
         align("dst", "src"),
         # don't split the first dimension
-        broadcast("src", (0,))))
+        broadcast("src", (0,)),
+    ),
+)
 def batched_fft(
-    dst: OutputStore, src: InputStore,
+    dst: OutputStore,
+    src: InputStore,
 ):
     cp_dst = cupy.asarray(dst)
     cp_src = cupy.asarray(src)
     cp_dst[:] = cupy.fft.fftn(cp_src, axes=(0,))
+
 
 shape = (1024, 1024)
 x = runtime.create_store(complex64, shape)
